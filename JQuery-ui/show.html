@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>jQueryUI特效.show()演示</title>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css">
+    <link rel="stylesheet" href="http://jqueryui.com/resources/demos/style.css">
+    <style>
+        .toggler {
+            width: 500px;
+            height: 200px;
+        }
+
+        #button {
+            padding: .5em 1em;
+            text-decoration: none;
+        }
+
+        #effect {
+            width: 240px;
+            height: 135px;
+            padding: 0.4em;
+            position: relative;
+        }
+
+        #effect h3 {
+            margin: 0;
+            padding: 0.4em;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="toggler">
+        <div id="effect" class="ui-widget-content ui-corner-all">
+            <h3 class="ui-widget-header ui-corner-all">显示</h3>
+            <p>
+                jQuery显示特效演示
+            </p>
+        </div>
+    </div>
+
+    <select name="effects" id="effectTypes">
+        <option value="blind">百叶窗特效</option>
+        <option value="bounce">抖动特效</option>
+        <option value="clip">剪辑特效</option>
+        <option value="explode">组合特效</option>
+        <option value="fold">折叠特效</option>
+        <option value="highlight">高亮特效</option>
+        <option value="puff">放大缩小特效</option>
+        <option value="pulsate">闪烁特效</option>
+        <option value="scale">缩放特效</option>
+        <option value="shake">震动特效</option>
+        <option value="size">位移特效</option>
+        <option value="slide">滑动特效</option>
+    </select>
+    <a href="#" id="button" class="ui-state-default ui-corner-all">运行特效</a>
+
+    <script src="//code.jquery.com/jquery-1.9.1.js"></script>
+    <script src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+    <script>
+        $(function () {
+            // 运行当前选中的特效
+            function runEffect() {
+                // 从中获取特效类型
+                var selectedEffect = $("#effectTypes").val();
+
+                // 大多数的特效类型默认不需要传递选项
+                var options = {};
+                // 一些特效带有必需的参数
+                if (selectedEffect === "scale") {
+                    options = { percent: 100 };
+                } else if (selectedEffect === "size") {
+                    options = { to: { width: 280, height: 185 } };
+                }
+
+                // 运行特效
+                $("#effect").show(selectedEffect, options, 500, callback);
+            };
+
+            // 回调函数
+            function callback() {
+                setTimeout(function () {
+                    $("#effect:visible").removeAttr("style").fadeOut();
+                }, 1000);
+            };
+
+            // 根据选择菜单值设置特效
+            $("#button").click(function () {
+                runEffect();
+                return false;
+            });
+
+            $("#effect").hide();
+        });
+    </script>
+</body>
+
+</html>
